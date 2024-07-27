@@ -1,2 +1,2 @@
 # today-i-learned
-A fullstack app with supabase
+A fullstack web app with supabase
