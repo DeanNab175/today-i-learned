@@ -63,6 +63,12 @@ function App() {
     });
   };
 
+  const handleUpdateFact = (updatedFact: FactType, factId: number) => {
+    setFacts((prevFacts) =>
+      prevFacts.map((f) => (f.id === factId ? updatedFact : f))
+    );
+  };
+
   return (
     <div className="container">
       <Header showForm={showForm} onToggleForm={handleShowForm} />
@@ -75,7 +81,11 @@ function App() {
 
       <main className="main">
         <CategoryFilter onCategoryClick={handleCategoryClick} />
-        {isLoading ? <Loader /> : <FactList facts={facts} />}
+        {isLoading ? (
+          <Loader />
+        ) : (
+          <FactList facts={facts} onUpdateFact={handleUpdateFact} />
+        )}
       </main>
     </div>
   );
