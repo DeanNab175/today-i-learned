@@ -63,8 +63,6 @@ function App() {
     })
   }
 
-  console.log("currentCategory", currentCategory)
-
   return (
     <div className="container">
       <Header showForm={showForm} onToggleForm={handleShowForm} />
