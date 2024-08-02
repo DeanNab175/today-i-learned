@@ -1,5 +1,5 @@
-import { useState } from "react"
-import { CATEGORIES, FactType } from "../data"
+import { useState } from "react";
+import { CATEGORIES, FactType } from "../data";
 import supabase from "../config/supabase";
 
 interface NewFactFormProps {
@@ -45,7 +45,7 @@ function NewFactForm({ onPostFact, onCloseForm }: NewFactFormProps) {
       }
 
       if (error) {
-        console.log("Error creating a new fact.", error.message)
+        console.log("Error creating a new fact.", error.message);
       }
 
       setIsUploading(false);
@@ -58,7 +58,7 @@ function NewFactForm({ onPostFact, onCloseForm }: NewFactFormProps) {
       // close form
       onCloseForm();
     }
-  }
+  };
   return (
     <form className="fact-form" onSubmit={handleSubmit}>
       <input
@@ -76,24 +76,33 @@ function NewFactForm({ onPostFact, onCloseForm }: NewFactFormProps) {
         onChange={(e) => setSource(e.target.value)}
         disabled={isUploading}
       />
-      <select value={category} onChange={(e) => setCategory(e.target.value)} disabled={isUploading}>
+      <select
+        value={category}
+        onChange={(e) => setCategory(e.target.value)}
+        disabled={isUploading}
+      >
         <option value="">Choose category:</option>
-        {CATEGORIES.map((cat) => <option key={cat.name} value={cat.name}>{cat.name}</option>)}
+        {CATEGORIES.map((cat) => (
+          <option key={cat.name} value={cat.name}>
+            {cat.name}
+          </option>
+        ))}
       </select>
-      <button type="submit" className="btn btn-large" disabled={isUploading}>{isUploading ? "Creating fact!!" : "Post"}</button>
+      <button type="submit" className="btn btn-large" disabled={isUploading}>
+        {isUploading ? "Creating fact!!" : "Post"}
+      </button>
     </form>
-  )
+  );
 }
 
 function isValidUrl(urlString: string) {
   let url;
   try {
     url = new URL(urlString);
-  }
-  catch (e) {
+  } catch (e) {
     return false;
   }
   return url.protocol === "http:" || url.protocol === "https:";
 }
 
-export default NewFactForm
+export default NewFactForm;

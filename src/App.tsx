@@ -19,7 +19,7 @@ function App() {
     const getFacts = async () => {
       setIsLoading(true);
 
-      let query = supabase.from('facts').select('*');
+      let query = supabase.from("facts").select("*");
 
       if (currentCategory !== "all") {
         query = query.eq("category", currentCategory);
@@ -38,35 +38,40 @@ function App() {
         setIsLoading(false);
         setFacts(facts as FactType[]);
       }
-    }
+    };
 
     getFacts();
-  }, [currentCategory])
+  }, [currentCategory]);
 
   const handleShowForm = () => {
     setShowForm((show) => !show);
-  }
+  };
 
   const handlePostFact = (fact: FactType) => {
-    setFacts((prevFacts) => [fact, ...prevFacts])
-  }
+    setFacts((prevFacts) => [fact, ...prevFacts]);
+  };
 
   const handleCloseForm = () => {
     setShowForm(false);
-  }
+  };
 
   const handleCategoryClick = (cat: string) => {
     setCurrentCategory((prevCat) => {
       if (prevCat === cat) return prevCat;
 
       return cat;
-    })
-  }
+    });
+  };
 
   return (
     <div className="container">
       <Header showForm={showForm} onToggleForm={handleShowForm} />
-      {showForm ? <NewFactForm onPostFact={handlePostFact} onCloseForm={handleCloseForm} /> : null}
+      {showForm ? (
+        <NewFactForm
+          onPostFact={handlePostFact}
+          onCloseForm={handleCloseForm}
+        />
+      ) : null}
 
       <main className="main">
         <CategoryFilter onCategoryClick={handleCategoryClick} />
