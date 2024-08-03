@@ -9,12 +9,13 @@ interface FactProps {
 
 function Fact({ fact, onUpdateFact }: FactProps) {
   const [isUpdating, setIsUpdating] = useState(false);
+  const isDisputed = fact.votesInteresting + fact.votesMindblowing < fact.votesFalse;
 
   const handleVote = async (columnName: keyof FactType) => {
     setIsUpdating(true);
 
     const {
-      data: [updatedFact],
+      data: updatedFact,
       error,
     } = await supabase
       .from("facts")
@@ -30,7 +31,7 @@ function Fact({ fact, onUpdateFact }: FactProps) {
     setIsUpdating(false);
 
     if (!error) {
-      onUpdateFact(updatedFact, fact.id);
+      onUpdateFact(updatedFact[0], fact.id);
     }
 
     if (error) {
@@ -40,6 +41,7 @@ function Fact({ fact, onUpdateFact }: FactProps) {
   return (
     <li className="fact">
       <p>
+        {isDisputed ? <span className="disputed">[⛔️ DISPUTED]</span> : null}
         {fact.text}
         <a className="source" href={fact.source} target="_blank">
           (Source)
