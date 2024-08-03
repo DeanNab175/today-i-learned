@@ -9,7 +9,7 @@ interface NewFactFormProps {
 
 function NewFactForm({ onPostFact, onCloseForm }: NewFactFormProps) {
   const [text, setText] = useState("");
-  const [source, setSource] = useState("http://www.google.com");
+  const [source, setSource] = useState("");
   const [category, setCategory] = useState("");
   const [isUploading, setIsUploading] = useState(false);
 
